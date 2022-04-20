@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse, FileResponse
-
+from pypandoc import convert_file
 
 from starlette.staticfiles import StaticFiles
 
@@ -16,6 +16,9 @@ async def get():
 @app.post("/file")
 async def upload_file(file: UploadFile = File(...)):
     content = await file.read()
+    f = content.decode("utf-8")
+    print(type(f))
+    print(f)
 
     data = {
         'filename': file.filename,
